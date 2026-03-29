@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          (request.auth.token.email == "mikesw15@gmail.com" && request.auth.token.email_verified == true));
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isValidUser() {
+      let data = request.resource.data;
+      return data.keys().hasOnly(['role', 'email', 'createdAt']) &&
+             data.role in ['admin', 'user'] &&
+             data.email is string &&
+             data.createdAt is timestamp;
+    }
+    
+    function isValidArticle() {
+      let data = request.resource.data;
+      return data.keys().hasOnly(['title', 'slug', 'summary', 'content', 'category', 'readTime', 'imageUrl', 'author', 'date', 'published', 'createdAt']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() < 200 &&
+             data.slug is string && data.slug.size() > 0 && data.slug.size() < 200 &&
+             data.summary is string && data.summary.size() < 1000 &&
+             data.content is string && data.content.size() < 50000 &&
+             data.category is string && data.category.size() < 50 &&
+             data.readTime is string && data.readTime.size() < 50 &&
+             data.imageUrl is string && data.imageUrl.size() < 1000 &&
+             data.author is string && data.author.size() < 100 &&
+             data.date is string && data.date.size() < 50 &&
+             data.published is bool &&
+             data.createdAt is timestamp;
+    }
+    
+    function isValidSettings() {
+      let data = request.resource.data;
+      return data.keys().hasOnly(['elitePrice', 'currency']) &&
+             data.elitePrice is number && data.elitePrice >= 0 &&
+             data.currency is string && data.currency.size() < 10;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+    
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAuthenticated() && isOwner(userId) && isValidUser() && 
+                    (request.resource.data.role == 'user' || isAdmin());
+      allow update: if isAuthenticated() && isOwner(userId) && isValidUser() &&
+                    (request.resource.data.role == resource.data.role || isAdmin());
+      allow delete: if isAdmin();
+    }
+    
+    match /articles/{articleId} {
+      allow read: if (resource.data.published == true) || isAdmin();
+      allow create: if isAdmin() && isValidArticle();
+      allow update: if isAdmin() && isValidArticle() && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if isAdmin();
+    }
+    
+    match /settings/{settingId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidSettings();
+      allow update: if isAdmin() && isValidSettings();
+      allow delete: if isAdmin();
+    }
+  }
+}

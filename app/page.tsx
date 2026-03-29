@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NewsCard from '@/components/NewsCard';
 import VideoCard from '@/components/VideoCard';
+import Link from 'next/link';
 import { ArrowRight, Zap, Terminal, Brain, Video, Database, Check } from 'lucide-react';
 
 // Mock data for dynamic rendering (WordPress ready)
@@ -15,7 +16,7 @@ const newsArticles = [
     category: "Markets",
     readTime: "4 min read",
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCff7oL1ePLnvrqhzPRF1ofI4fP2tqqkOmT-MHQTeXHbRhn5mlzvK7qQzimyiCf0b58AOFKflAq2XYl8iCDaruGp5IP5lveri01gFT9sr3KHvW8KIJ9tEYq11nnO4hzhmpK_Q9nHwmtAf5aoBMm6Cc3jxGKKb-SqBRnP-DjwSviiGOHGTvkBKKiE0IT8xTK1e1OgzUUSYH4xzso18FxjS8PyIxr1PgxPwKYkLlJ1MUYyvGXcbFoZ9H161-Z1hTCiFzP01NHsuzcGjqu",
-    href: "#",
+    href: "/markets/searchgpt",
     categoryTheme: "primary" as const
   },
   {
@@ -25,7 +26,7 @@ const newsArticles = [
     category: "Intelligence",
     readTime: "6 min read",
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBq1b7z33kcNka_qZ5HsXC2RP3tL8OmJeKTYRouKpKoya0Yp-J_LT9Wt3UySX2kcvKkiWKQfCGs15I3Lmk7NAImm7idFHTneh3rfT0_vvKHepQKBedx-3T8cDvA5_CnBtdGRkCizvTa4GDGZshgITQ8iNF9zz_9iWzZEkbmWNBQyd_9ysyR_nCmB_aggsEK8TqfDaSqSXpdDJdnq2jLE7JbaLRomcrsfyDetGJt_aGWeZO9zAl8zTFwhColxsOVGdBumG3dVJzx25C8",
-    href: "#",
+    href: "/intelligence/llama4",
     categoryTheme: "secondary" as const
   },
   {
@@ -35,7 +36,7 @@ const newsArticles = [
     category: "Research",
     readTime: "8 min read",
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCvmEGRLyBw2W8eak4OQFpJQVXnZqWs7nBzY51rSQPjUs6OHRMaTKGUAZNEZ6nTRPmUJqSbCgLG5rKXG10tGgfj4zMzQWYWL2WwtHsf2PJ7mprKEd5Mxk8N3LAeULpzu7ALUcqKYwPW3FGB_tCyhzSci4sfdf0ncGjlKIEFFbHeH_lu5Gn8BJ7CwUSHwmhXBWbl08tnV0OXdQzrqjbm-tVMPfeZZkXzmXrmKn5T1-tj5I9aRlT2TnBJru2G761DLoBTIhN7AOM7mWQY",
-    href: "#",
+    href: "/research/h100-bottleneck",
     categoryTheme: "tertiary" as const
   }
 ];
@@ -118,9 +119,9 @@ export default function Home() {
                 <h2 className="font-headline text-3xl font-black tracking-tight mb-2">INTELLIGENCE FEED</h2>
                 <div className="h-1 w-20 bg-primary"></div>
               </div>
-              <a href="#" className="group flex items-center gap-2 text-primary font-bold tracking-tighter hover:gap-4 transition-all w-fit">
+              <Link href="/intelligence" className="group flex items-center gap-2 text-primary font-bold tracking-tighter hover:gap-4 transition-all w-fit">
                 VIEW ALL UPDATES <ArrowRight size={20} />
-              </a>
+              </Link>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -159,7 +160,7 @@ export default function Home() {
               {tools.map((tool, index) => {
                 const Icon = tool.icon;
                 return (
-                  <a key={index} href="#" className="group block p-6 bg-surface-container border border-outline-variant/10 hover:border-primary transition-all duration-300 rounded-sm">
+                  <Link key={index} href={`/tools/${tool.name.toLowerCase()}`} className="group block p-6 bg-surface-container border border-outline-variant/10 hover:border-primary transition-all duration-300 rounded-sm">
                     <div className="flex items-center gap-3 mb-4">
                       <div className={`w-10 h-10 rounded-sm flex items-center justify-center ${tool.colorClass}`}>
                         <Icon size={20} />
@@ -167,7 +168,7 @@ export default function Home() {
                       <span className="font-headline font-bold text-on-surface">{tool.name}</span>
                     </div>
                     <p className="text-xs text-on-surface-variant leading-relaxed">{tool.desc}</p>
-                  </a>
+                  </Link>
                 );
               })}
             </div>

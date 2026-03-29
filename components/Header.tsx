@@ -16,10 +16,10 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 font-headline tracking-tight font-bold text-on-surface">
-          <Link href="#" className="text-primary border-b-2 border-primary pb-1">Intelligence</Link>
-          <Link href="#" className="text-on-surface-variant hover:text-primary transition-colors">Markets</Link>
-          <Link href="#" className="text-on-surface-variant hover:text-primary transition-colors">Research</Link>
-          <Link href="#" className="text-on-surface-variant hover:text-primary transition-colors">Premium</Link>
+          <Link href="/intelligence" className="text-primary border-b-2 border-primary pb-1">Intelligence</Link>
+          <Link href="/markets" className="text-on-surface-variant hover:text-primary transition-colors">Markets</Link>
+          <Link href="/research" className="text-on-surface-variant hover:text-primary transition-colors">Research</Link>
+          <Link href="/premium" className="text-on-surface-variant hover:text-primary transition-colors">Premium</Link>
         </div>
 
         <div className="flex items-center gap-4">
@@ -39,10 +39,10 @@ export default function Header() {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-surface-container-high border-b border-outline-variant/20 shadow-xl py-4 px-6 flex flex-col gap-4 font-headline font-bold">
-          <Link href="#" className="text-primary py-2">Intelligence</Link>
-          <Link href="#" className="text-on-surface-variant hover:text-primary py-2 transition-colors">Markets</Link>
-          <Link href="#" className="text-on-surface-variant hover:text-primary py-2 transition-colors">Research</Link>
-          <Link href="#" className="text-on-surface-variant hover:text-primary py-2 transition-colors">Premium</Link>
+          <Link href="/intelligence" className="text-primary py-2" onClick={() => setIsMobileMenuOpen(false)}>Intelligence</Link>
+          <Link href="/markets" className="text-on-surface-variant hover:text-primary py-2 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Markets</Link>
+          <Link href="/research" className="text-on-surface-variant hover:text-primary py-2 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Research</Link>
+          <Link href="/premium" className="text-on-surface-variant hover:text-primary py-2 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Premium</Link>
           <button className="w-full mt-2 px-5 py-3 kinetic-gradient text-on-primary-container font-bold rounded-sm hover:brightness-110 active:scale-95 transition-all">
             Subscribe Now
           </button>
