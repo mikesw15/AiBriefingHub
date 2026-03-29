@@ -8,6 +8,7 @@ export default function Footer() {
         <div className="text-xl font-black text-primary italic tracking-tighter uppercase">AI BRIEFING HUB</div>
         
         <nav className="flex flex-wrap justify-center gap-6 md:gap-12 font-body text-sm">
+          <Link href="/about" className="text-on-surface-variant hover:text-secondary transition-colors">About</Link>
           <Link href="/privacy" className="text-on-surface-variant hover:text-secondary transition-colors">Privacy Policy</Link>
           <Link href="/terms" className="text-on-surface-variant hover:text-secondary transition-colors">Terms of Intelligence</Link>
           <Link href="/editorial" className="text-on-surface-variant hover:text-secondary transition-colors">Editorial Standards</Link>

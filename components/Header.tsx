@@ -20,6 +20,7 @@ export default function Header() {
           <Link href="/markets" className="text-on-surface-variant hover:text-primary transition-colors">Markets</Link>
           <Link href="/research" className="text-on-surface-variant hover:text-primary transition-colors">Research</Link>
           <Link href="/premium" className="text-on-surface-variant hover:text-primary transition-colors">Premium</Link>
+          <Link href="/about" className="text-on-surface-variant hover:text-primary transition-colors">About</Link>
         </div>
 
         <div className="flex items-center gap-4">
@@ -43,6 +44,7 @@ export default function Header() {
           <Link href="/markets" className="text-on-surface-variant hover:text-primary py-2 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Markets</Link>
           <Link href="/research" className="text-on-surface-variant hover:text-primary py-2 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Research</Link>
           <Link href="/premium" className="text-on-surface-variant hover:text-primary py-2 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Premium</Link>
+          <Link href="/about" className="text-on-surface-variant hover:text-primary py-2 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
           <button className="w-full mt-2 px-5 py-3 kinetic-gradient text-on-primary-container font-bold rounded-sm hover:brightness-110 active:scale-95 transition-all">
             Subscribe Now
           </button>
